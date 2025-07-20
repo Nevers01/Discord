@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace MODEL.Entity
 {
-    internal class CoreEntity
+    public class CoreEntity
     {
-        public int İd { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public int Id { get; set; }
+        public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
     }
 }
