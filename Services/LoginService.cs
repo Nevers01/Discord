@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Services.İnterface;
 
 namespace Services
 {
-    internal class LoginService
+    public class LoginService : ILoginService
     {
+        public void check(string Username, string PasswordHash)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
