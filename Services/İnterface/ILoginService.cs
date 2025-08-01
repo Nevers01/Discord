@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Services.İnterface
 {
-    public interface İLoginService
+    public interface ILoginService
     {
-        void check(string Username, string PasswordHash)
-        { }
+        Task<bool> CheckCredentialsAsync(string Username, string PasswordHash);
     }
 }

@@ -21,5 +21,7 @@ namespace MODEL
         public ModelDbContext(DbContextOptions<ModelDbContext> options) : base(options)
         {
         }
+
+        public DbSet<User> Users { get; set; }
     }
 }
