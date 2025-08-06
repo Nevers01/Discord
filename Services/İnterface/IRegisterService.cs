@@ -1,3 +1,4 @@
+using MODEL.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,6 @@ namespace Services.İnterface
 {
     public interface IRegisterService
     {
-        
+        Task<bool> RegisterAsync(RegUserDto Userinfo);
     }
 }

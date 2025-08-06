@@ -1,25 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\adagul\\Desktop\\Discord-master\\MODEL\\Models.csproj": {}
+    "C:\\Users\\Nevers\\Desktop\\Discord\\MODEL\\Models.csproj": {}
   },
   "projects": {
-    "C:\\Users\\adagul\\Desktop\\Discord-master\\MODEL\\Models.csproj": {
+    "C:\\Users\\Nevers\\Desktop\\Discord\\MODEL\\Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\adagul\\Desktop\\Discord-master\\MODEL\\Models.csproj",
+        "projectUniqueName": "C:\\Users\\Nevers\\Desktop\\Discord\\MODEL\\Models.csproj",
         "projectName": "Models",
-        "projectPath": "C:\\Users\\adagul\\Desktop\\Discord-master\\MODEL\\Models.csproj",
-        "packagesPath": "C:\\Users\\adagul\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\adagul\\Desktop\\Discord-master\\MODEL\\obj\\",
+        "projectPath": "C:\\Users\\Nevers\\Desktop\\Discord\\MODEL\\Models.csproj",
+        "packagesPath": "C:\\Users\\Nevers\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Nevers\\Desktop\\Discord\\MODEL\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\adagul\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Nevers\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -37,11 +44,22 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.19, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.19, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -58,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.412/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
