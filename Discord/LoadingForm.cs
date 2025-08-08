@@ -22,7 +22,6 @@ namespace Discord
             ProgressBarStatus.SmoothingMode = SmoothingMode.HighQuality;
             ProgressBarStatus.Minimum = 0;
             ProgressBarStatus.Maximum = 100;
-            ProgressBarStatus.Value = 0;
         }
 
         private async void LoadingForm_Load(object sender, EventArgs e)
@@ -30,7 +29,8 @@ namespace Discord
             try
             {
                 // 1) İnternet
-                UpdateStatus("İnternet bağlantısı kontrol ediliyor...", 20);
+                UpdateStatus("İnternet bağlantısı kontrol ediliyor...", /*progress just text*/ 0);
+                await ProgressSmooth.ToAsync(ProgressBarStatus, 20, 600); // 0 → 20 yumuşak
                 var internetOk = await SystemChecker.CheckInternetAsync();
                 if (!internetOk)
                 {
@@ -40,7 +40,8 @@ namespace Discord
                 }
 
                 // 2) Veritabanı
-                UpdateStatus("Veritabanı bağlantısı kontrol ediliyor...", 50);
+                UpdateStatus("Veritabanı bağlantısı kontrol ediliyor...", 0);
+                await ProgressSmooth.ToAsync(ProgressBarStatus, 40, 600);
                 using var db = BuildDbContext();
                 var dbOk = await SystemChecker.CheckDatabaseAsync(db);
                 if (!dbOk)
@@ -51,7 +52,8 @@ namespace Discord
                 }
 
                 // 3) Dosya
-                UpdateStatus("Dosyalar kontrol ediliyor...", 80);
+                UpdateStatus("Dosyalar kontrol ediliyor...", 0);
+                await ProgressSmooth.ToAsync(ProgressBarStatus, 60, 600);
                 //var (filesOk, err) = await SystemChecker.CheckFilesAsync("manifest.json", strictHash: true);
 
                 var timeoutTask = Task.Delay(TimeSpan.FromSeconds(5));
@@ -66,7 +68,8 @@ namespace Discord
                 }
 
                 // Tamamlandı
-                UpdateStatus("Hazırlık tamamlandı, uygulama başlatılıyor...", 100);
+                UpdateStatus("Hazırlık tamamlandı...", 0);
+                await ProgressSmooth.ToAsync(ProgressBarStatus, 100, 700);
                 await Task.Delay(500);
 
                 //// Ana forma geç
