@@ -4,6 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;             // CancellationToken
+using System.Windows.Forms;         // ProgressBar, Control
+using System.Drawing.Drawing2D;     // (gerekirse başka yerde SmoothingMode vs)
 
 namespace Discord.Helper
 {

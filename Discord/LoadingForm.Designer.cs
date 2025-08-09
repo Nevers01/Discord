@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoadingForm));
             ProgressBarStatus = new ReaLTaiizor.Controls.CyberProgressBar();
             LabelStatus = new ReaLTaiizor.Controls.CrownLabel();
+            progressIndicator1 = new ReaLTaiizor.Controls.ProgressIndicator();
+            hopeForm1 = new ReaLTaiizor.Forms.HopeForm();
             SuspendLayout();
             // 
             // ProgressBarStatus
@@ -81,9 +84,36 @@
             LabelStatus.ForeColor = Color.FromArgb(220, 220, 220);
             LabelStatus.Location = new Point(12, 302);
             LabelStatus.Name = "LabelStatus";
-            LabelStatus.Size = new Size(74, 15);
+            LabelStatus.Size = new Size(0, 15);
             LabelStatus.TabIndex = 6;
-            LabelStatus.Text = "crownLabel1";
+            // 
+            // progressIndicator1
+            // 
+            progressIndicator1.Location = new Point(115, 86);
+            progressIndicator1.MinimumSize = new Size(50, 50);
+            progressIndicator1.Name = "progressIndicator1";
+            progressIndicator1.P_AnimationColor = Color.DimGray;
+            progressIndicator1.P_AnimationSpeed = 100;
+            progressIndicator1.P_BaseColor = Color.DarkGray;
+            progressIndicator1.Size = new Size(92, 92);
+            progressIndicator1.TabIndex = 7;
+            progressIndicator1.Text = "progressIndicator1";
+            // 
+            // hopeForm1
+            // 
+            hopeForm1.ControlBoxColorH = Color.FromArgb(228, 231, 237);
+            hopeForm1.ControlBoxColorHC = Color.FromArgb(245, 108, 108);
+            hopeForm1.ControlBoxColorN = Color.White;
+            hopeForm1.Dock = DockStyle.Top;
+            hopeForm1.Font = new Font("Segoe UI", 12F);
+            hopeForm1.ForeColor = Color.FromArgb(242, 246, 252);
+            hopeForm1.Image = (Image)resources.GetObject("hopeForm1.Image");
+            hopeForm1.Location = new Point(0, 0);
+            hopeForm1.Name = "hopeForm1";
+            hopeForm1.Size = new Size(321, 40);
+            hopeForm1.TabIndex = 8;
+            hopeForm1.Text = "Discord";
+            hopeForm1.ThemeColor = Color.FromArgb(92, 173, 255);
             // 
             // LoadingForm
             // 
@@ -91,10 +121,15 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDarkDark;
             ClientSize = new Size(321, 375);
+            Controls.Add(hopeForm1);
+            Controls.Add(progressIndicator1);
             Controls.Add(LabelStatus);
             Controls.Add(ProgressBarStatus);
             FormBorderStyle = FormBorderStyle.None;
+            MaximumSize = new Size(1920, 1032);
+            MinimumSize = new Size(190, 40);
             Name = "LoadingForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "LoadingForm";
             TopMost = true;
             Load += LoadingForm_Load;
@@ -105,5 +140,7 @@
         #endregion
         private ReaLTaiizor.Controls.CyberProgressBar ProgressBarStatus;
         private ReaLTaiizor.Controls.CrownLabel LabelStatus;
+        private ReaLTaiizor.Controls.ProgressIndicator progressIndicator1;
+        private ReaLTaiizor.Forms.HopeForm hopeForm1;
     }
 }

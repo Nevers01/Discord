@@ -22,6 +22,7 @@ namespace Discord
             ProgressBarStatus.SmoothingMode = SmoothingMode.HighQuality;
             ProgressBarStatus.Minimum = 0;
             ProgressBarStatus.Maximum = 100;
+            ProgressBarStatus.Value = 0;   // sadece başlangıçta
         }
 
         private async void LoadingForm_Load(object sender, EventArgs e)
@@ -29,8 +30,9 @@ namespace Discord
             try
             {
                 // 1) İnternet
-                UpdateStatus("İnternet bağlantısı kontrol ediliyor...", /*progress just text*/ 0);
-                await ProgressSmooth.ToAsync(ProgressBarStatus, 20, 600); // 0 → 20 yumuşak
+                UpdateStatus("İnternet bağlantısı kontrol ediliyor...");
+                await ProgressSmooth.ToAsync(ProgressBarStatus, 20, 600);
+
                 var internetOk = await SystemChecker.CheckInternetAsync();
                 if (!internetOk)
                 {
@@ -40,8 +42,9 @@ namespace Discord
                 }
 
                 // 2) Veritabanı
-                UpdateStatus("Veritabanı bağlantısı kontrol ediliyor...", 0);
+                UpdateStatus("Veritabanı bağlantısı kontrol ediliyor...");
                 await ProgressSmooth.ToAsync(ProgressBarStatus, 40, 600);
+
                 using var db = BuildDbContext();
                 var dbOk = await SystemChecker.CheckDatabaseAsync(db);
                 if (!dbOk)
@@ -51,32 +54,39 @@ namespace Discord
                     return;
                 }
 
-                // 3) Dosya
-                UpdateStatus("Dosyalar kontrol ediliyor...", 0);
+                // 3) Dosyalar (5 sn timeout ile yarış)
+                UpdateStatus("Dosyalar kontrol ediliyor...");
                 await ProgressSmooth.ToAsync(ProgressBarStatus, 60, 600);
-                //var (filesOk, err) = await SystemChecker.CheckFilesAsync("manifest.json", strictHash: true);
 
+                //var fileCheckTask = SystemChecker.CheckFilesAsync("manifest.json", strictHash: true);
                 var timeoutTask = Task.Delay(TimeSpan.FromSeconds(5));
-
-                // 3) Hangisi önce biterse onu al
                 var completed = await Task.WhenAny(timeoutTask);
 
                 if (completed == timeoutTask)
                 {
-                    //MessageBox.Show($"Dosya kontrol hatası: {err}");
-                    //Application.Exit();
+                    // Zaman aşımı oldu → devam et (istersen ufak log/uyarı göster)
+                    // MessageBox.Show("Dosya kontrolü zaman aşımına uğradı, devam ediliyor...");
                 }
+                //else
+                //{
+                //    var (filesOk, err) = await fileCheckTask;
+                //    if (!filesOk)
+                //    {
+                //        MessageBox.Show($"Dosya kontrol hatası: {err}");
+                //        Application.Exit();
+                //        return;
+                //    }
+                //}
 
-                // Tamamlandı
-                UpdateStatus("Hazırlık tamamlandı...", 0);
+                // Final
+                UpdateStatus("Hazırlık tamamlandı...");
                 await ProgressSmooth.ToAsync(ProgressBarStatus, 100, 700);
-                await Task.Delay(500);
+                await Task.Delay(300);
 
-                //// Ana forma geç
-                //var main = new MainForm();
-                //main.Show();
-                //this.Hide();
-                //this.Dispose();
+                var login = new LoginForm();
+                login.Show();
+                this.Hide();
+                // this.Dispose(); // login açıldıktan sonra kapatmak istersen aç
             }
             catch (Exception ex)
             {
@@ -85,21 +95,15 @@ namespace Discord
             }
         }
 
-        private void UpdateStatus(string text, int progressValue)
+        private void UpdateStatus(string text)
         {
             if (InvokeRequired)
             {
-                BeginInvoke(new Action(() => UpdateStatus(text, progressValue)));
+                BeginInvoke(new Action(() => UpdateStatus(text)));
                 return;
             }
 
             LabelStatus.Text = text;
-
-            // ProgressBar sınır dışı olmasın
-            if (progressValue < ProgressBarStatus.Minimum) progressValue = ProgressBarStatus.Minimum;
-            if (progressValue > ProgressBarStatus.Maximum) progressValue = ProgressBarStatus.Maximum;
-
-            ProgressBarStatus.Value = progressValue;
         }
 
         private static MODEL.ModelDbContext BuildDbContext()
